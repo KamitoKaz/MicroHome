@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>MicroHome</title>
+    <link rel="icon" href="logo.png" type="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    :root {
+        --body-bg: #bad7f2;
+        --text: #14213d;
+
+        --box-bg: #e5e5e5;
+        --box-border: #14213d;
+
+        --card-bg: #bbcfd8;
+        --card-border: #14213d;
+
+        --nav-bg: #119de9;
+        --nav-text: black;
+
+        --card-text: #14213d;
+        --icon: rgba(20, 33, 61, 0.55);
+    }
+
+    body.dark {
+        --body-bg: #4c4e5b;
+        --text: #fff;
+        --box-bg: #3a3f4b;
+        --box-border: #737373;
+        --card-bg: #6e7983;
+        --card-border: #737373;
+        --nav-bg: #b4b4b4;
+        --nav-text: #14213d;
+        --card-text: #fff;
+        --icon: rgba(255, 255, 255, 0.6);
+    }
+
+    body {
+        background: var(--body-bg);
+        color: var(--text);
+        height: 100vh;
+        padding: 15px;
+        transition: background 0.6s ease;
+    }
+
+    .theme-toggle {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;  
+        gap: 8px;             
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 42px;
+        height: 20px;
+    }
+
+    .switch input { display: none; }
+
+    .slider {
+        position: absolute;
+        inset: 0;
+        background: #f4f4f4;        
+        border-radius: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .slider:before {
+        content: "";
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        left: 2px;
+        bottom: 2px;
+        background: #22252b;
+        border-radius: 50%;
+        transition: 0.3s;
+    }
+
+    input:checked + .slider {
+        background: #22252b;
+    }
+    input:checked + .slider:before { 
+        transform: translateX(20px); 
+        background: white; 
+    }
+
+    .wrapper1 {
+        width:100%;
+        height:100%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .content-box {
+        width: 1000px;
+        height: 500px;
+        background: var(--box-bg);
+        border: 3px solid var(--box-border);
+        border-radius: 12px;
+        padding: 20px;
+        display: flex; 
+        align-items: center;
+        transition: 0.4s ease;
+    }
+
+    .lg {
+        padding: 15px;
+        border-radius: 12px;
+        background: var(--card-bg);
+        border: 3px solid var(--card-border);
+        text-align: center;
+        margin-left: 25px;
+        height: 400px;
+        width: 500px;
+        transition: 0.3s ease;
+    }
+
+    .input-group {
+        position: relative;
+        width: 80%;
+        margin: 35px auto;
+    }
+
+    .icon-left {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--icon);
+        pointer-events: none;
+        font-size: 15px;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 14px 48px 14px 48px;
+        border-radius: 14px;
+        border: 2px solid rgba(20, 33, 61, 0.6);
+        background: #fff;
+        font-size: 14px;
+        transition: 0.25s ease;
+    }
+
+    body.dark .input-group input {
+        background: #3a3f4b;
+        color:white;
+    }
+
+    .input-group input:focus {
+        outline: none;
+        border-color: #119de9;
+        box-shadow: 0 0 0 3px rgba(17,157,233,0.15);
+    }
+
+    .toggle-password {
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 15px;
+        color: var(--icon);
+        cursor: pointer;
+        z-index: 5;
+        pointer-events: auto;
+    }
+
+    .lg button {
+        width: 200px;
+        margin-top: 15px;
+        padding: 8px 18px;
+        border-radius: 50px;
+        background: linear-gradient(#11e3e9, #156b82);
+        color: #fff;
+        font-weight: 600;
+        font-size: 18px;
+    }
+
+    .welcome-box {
+        width: 400px;
+        text-align: center;
+        padding: 20px;
+        margin-left: 20px;
+    }
+
+    .welcome-logo {
+        width: 180px;
+        margin-bottom: 10px;
+    }
+
+    /* Page Loader */
+    #pageLoader {
+        position: fixed;
+        inset: 0;
+        background: var(--body-bg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.8s ease;
+    }
+
+    #pageLoader.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    #pageLoader img {
+        width: 300px;
+        opacity: 0;
+        transform: scale(0.7);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    #pageLoader.show img {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+</style>
+</head>
+
+<body>
+    <div id="pageLoader">
+    <img src="logo.png" alt="logo">
+    </div>
+
+    <div class="wrapper1">
+
+        <div class="theme-toggle">
+            <span id="modeLabel">Light</span>
+            <label class="switch">
+                <input type="checkbox" id="modeToggle">
+                <span class="slider round"></span>
+            </label>
+        </div>
+
+        <section id="login">
+            <div class="content-box">
+
+                <div class="lg">
+                    <h2>User Login</h2>
+
+                    <div class="input-group">
+                        <i class="fa-regular fa-user icon-left"></i>
+                        <input type="text" id="username" placeholder="Username">
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fa-solid fa-lock icon-left"></i>
+                        <input type="password" id="password" placeholder="Password">
+                        <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
+                    </div>
+
+                    <button onclick="login()">Login</button>
+                    <p id="message"></p>
+                </div>
+
+                <div class="welcome-box">
+                    <img src="logo.png" class="welcome-logo">
+                    <h2>Welcome to MicroHome!</h2>
+                    <p>
+                        This platform provides access to the interactive smart-home diorama
+                        where you can monitor activity and control devices in real time.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+<script>
+const toggle = document.getElementById("modeToggle");
+const modeLabel = document.getElementById("modeLabel");
+const togglePassword = document.getElementById("togglePassword");
+const password = document.getElementById("password");
+
+
+toggle.checked = true;
+document.body.classList.add("dark");
+modeLabel.textContent = "Dark";
+
+toggle.addEventListener("change", () => {
+    document.body.classList.toggle("dark");
+    modeLabel.textContent = toggle.checked ? "Dark" : "Light";
+});
+togglePassword.addEventListener("click", () => {
+    if (password.type === "password") {
+        password.type = "text";
+        togglePassword.classList.remove("fa-eye");
+        togglePassword.classList.add("fa-eye-slash");
+    } else {
+        password.type = "password";
+        togglePassword.classList.remove("fa-eye-slash");
+        togglePassword.classList.add("fa-eye");
+    }
+});
+
+// Use ESP32 to verify password visibility
+function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    fetch("/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}`
+    })
+    .then(response => {
+        if (response.status === 200) {
+            const loader = document.getElementById("pageLoader");
+            loader.classList.add("show");
+
+            setTimeout(() => {
+                window.location.href = "dash.html";
+            }, 1200);
+        } else {
+            document.getElementById("message").textContent =
+                "Invalid username or password!";
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        document.getElementById("message").textContent =
+            "Server not reachable";
+    });
+}
+
+// Submit on ENTER key
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        login();
+    }
+});
+</script>
+
+</body>
+</html>

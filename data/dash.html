@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>MicroHome</title>
+    <link rel="icon" href="logo.png" type="logo.png">
+    <link rel="stylesheet" href="dash.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper1">
+        <!-- intruder alert -->
+         <div id="intruder-alert" class="intruder-notification">
+            SYSTEM WARNING: INTRUDER ATTEMPT DETECTED! <br>
+            <span id="CDlocked">--</span> seconds until doors unlock.
+        </div>
+
+        <!-- NAVBAR -->
+        <div class="navbar">
+            <div class="nav-left">
+                <div class="logo-box">
+                    <img src="logo.png" alt="logo">
+                    <span style="font-weight:800; font-size:20px; color:#000;">MicroHome</span>
+                </div>
+
+                <div class="nav-links">
+                    <a href="#home">Home</a>
+                    <a href="#room-controls">Room Controls</a>
+                </div>
+            </div>
+
+            <div class="right-side">
+                <span id="modeLabel">Light</span>
+                <label class="switch">
+                    <input id="modeToggle" type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+       
+        <!-- HOME SECTION -->
+        <section id="home">
+            <div class="content-box">
+                <div class="slideshow-wrapper">
+
+                    <div class="slideshow-container">
+                        <div class="slide fade"><img src="LR.jpg"></div>
+                        <div class="slide fade"><img src="PR.jpg"></div>
+                        <div class="slide fade"><img src="K.jpg"></div>
+                        <div class="slide fade"><img src="T.jpg"></div>
+                        <div class="slide fade"><img src="BR.jpg"></div>
+                        <div class="slide fade"><img src="B.jpg"></div>
+                        <div class="slide fade"><img src="O.jpg"></div>
+                    </div>
+
+                    <div class="status-row">
+
+                        <div class="status-card intruder-card" id="intruder-card">
+                            <h3>Door Failed</h3>
+                            <h3>Attempt</h3>
+                            <div class="status-value" id="intruderAttempts"><span id="attempts">--</span>/3</div>
+                        </div>
+
+                        <div class="status-card door-card" id="doorCard">
+                            <h3>Main House Door</h3>
+
+                            <div class="toggle-row">
+                                <span>Auto</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="doorToggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="toggle-row">
+                                <span id="openLabel">Open</span>
+                                <label class="switch open-switch">
+                                    <input type="checkbox" id="openToggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="status-card audio-card" id="audioCard">
+                            <h3>System<br>Audio Voice</h3>
+                            <div class="status-value" id="audioStatus">Inactive</div>
+                            <div class="audio-toggle-wrapper">
+                                <label class="switch audio-switch">
+                                    <input type="checkbox" id="audioToggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="status-card exhaust-card" id="exhaustCard">
+                            <h3>Exhaust Fan</h3>
+
+                            <div class="toggle-row">
+                                <span>Auto</span>
+                                <label class="switch auto-switch">
+                                    <input type="checkbox" id="exhaustAuto">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="toggle-row">
+                                <span id="powerLabel">Off</span>
+                                <label class="switch power-switch">
+                                    <input type="checkbox" id="exhaustPower">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sensor-container">
+
+                        <div class="sensor-column">
+                            <div class="status-card sensor">
+                                <h3>Light Intensity</h3>
+                                <p class="value"><span id="lit">--</span> lux</p>
+                                <span class="location">Bedroom</span>
+                            </div>
+
+                            <div class="status-card sensor">
+                                <h3>Presence Detected</h3>
+                                <p class="value"><span id="dis">--</span> cm</p>
+                                <span class="location">Living Room</span>
+                            </div>
+                        </div>
+
+                        <div class="sensor-column">
+                            <div class="status-card sensor">
+                                <h3>Noise Level</h3>
+                                <p class="value"><span id="son">--</span> dB</p>
+                                <span class="location">Kitchen</span>
+                            </div>
+
+                            <div class="status-card sensor">
+                                <h3>Humidity</h3>
+                                <p class="value"><span id="hum">--</span> %</p>
+                                <span class="location">Living Room</span>
+                            </div>
+                        </div>
+
+                        <div class="sensor-column">
+                            <div class="status-card sensor-temperature">
+                                <h3>Temperature</h3>
+                                <p class="value"><span id="temp">--</span> °C<div class="tempF"><span id="tempF">--</span> °F</div></p>
+                                <span class="location">Living Room</span>
+                            </div>
+
+                            <div class="status-card sensor-heat">
+                                <h3>Heat Index</h3>
+                                <p class="value"><span id="hic">--</span> °C<div class="hif"><span id="hif">--</span> °F</div></p>
+                                <span class="location">Living Room</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INTRUDER ALERT OVERLAY -->
+            <div id="intruder-alert-overlay">
+                <div class="intruder-alert-box">
+                    <h1>INTRUDER ALERT!</h1>
+                    <h2>DOORS ARE NOW LOCKED.</h2>
+                </div>
+            </div>
+        </section>
+
+        <section id="room-controls">
+            <div class="rcontent-box">
+
+                <!-- BEDROOM -->
+                <div class="bedroom">
+                    <h2>Bedroom</h2>
+
+                    <div class="bcontrol-card" id="bedroom-light-auto">
+                        <div class="bcard-top">
+                            <h4>Light Control</h4>
+                        </div>
+                        <div class="bcard-bottom">
+                            <p class="state" id="bedroom-auto-state">Auto</p>
+                            <label class="switch">
+                                <input type="checkbox" id="bedroom-toggle-auto">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="bcontrol-card" id="bedroom-roomlight">
+                        <div class="bcard-top">
+                            <h4>Room Light</h4>
+                        </div>
+                        <div class="bcard-bottom">
+                            <p class="state" id="bedroom-room-state">Off</p>
+                            <label class="switch">
+                                <input type="checkbox" id="bedroom-toggle-roomlight">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIVINGROOM -->
+                <div class="livingroom">
+                    <h2>Living Room</h2>
+
+                    <!-- LIGHT CONTROL AUTO -->
+                    <div class="lcontrol-card" id="livingroom-light-auto">
+                        <div class="lcard-top">
+                            <h4>Light Control</h4>
+                        </div>
+                        <div class="lcard-bottom">
+                            <p class="state" id="livingroom-auto-state">Auto</p>
+                            <label class="switch">
+                                <input type="checkbox" id="livingroom-toggle-auto">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- ROOM LIGHT -->
+                    <div class="lcontrol-card" id="livingroom-roomlight">
+                        <div class="lcard-top">
+                            <h4>Room Light</h4>
+                        </div>
+                        <div class="lcard-bottom">
+                            <p class="state" id="livingroom-room-state">Off</p>
+                            <label class="switch">
+                                <input type="checkbox" id="livingroom-toggle-roomlight">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- GREETING CONTROL -->
+                    <div class="lcontrol-card" id="livingroom-greet-auto">
+                        <div class="lcard-top">
+                            <h4>Screen Control</h4>
+                        </div>
+                        <div class="lcard-bottom">
+                            <p class="state" id="livingroom-greet-auto-state">Auto</p>
+                            <label class="switch">
+                                <input type="checkbox" id="livingroom-toggle-greet-auto">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Greeting Panel -->
+                    <div class="lcontrol-card greeting-panel" id="livingroom-greet-panel">
+                        <div class="lcard-top">
+                            <h4>Screen Display</h4>
+                        </div>
+
+                        <div class="greet-box">
+                            <button class="greet-btn" id="livingroom-greet-btn">Change</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="kitchen">
+                    <h2>Kitchen</h2>
+                    <!-- LIGHT CONTROL AUTO -->
+                    <div class="kcontrol-card" id="kitchen-light-auto">
+                        <div class="kcard-top">
+                            <h4>Light Control</h4>
+                        </div>
+                        <div class="kcard-bottom">
+                            <p class="state" id="kitchen-auto-state">Auto</p>
+                            <label class="switch">
+                                <input type="checkbox" id="kitchen-toggle-auto">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- ROOM LIGHT -->
+                    <div class="kcontrol-card" id="kitchen-roomlight">
+                        <div class="kcard-top">
+                            <h4>Room Light</h4>
+                        </div>
+                        <div class="kcard-bottom">
+                            <p class="state" id="kitchen-room-state">Off</p>
+                            <label class="switch">
+                                <input type="checkbox" id="kitchen-toggle-roomlight">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- EXHAUST AUTO -->
+                    <div class="kcontrol-card" id="kitchen-fan-auto">
+                        <div class="kcard-top">
+                            <h4>Exhaust Fan Control</h4>
+                        </div>
+                        <div class="kcard-bottom">
+                            <p class="state" id="kitchen-fan-auto-state">Auto</p>
+                            <label class="switch">
+                                <input type="checkbox" id="kitchen-toggle-fan-auto">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- FAN / LIGHT (MANUAL) -->
+                    <div class="kcontrol-card" id="kitchen-fan-panel">
+                        <div class="kcard-top">
+                            <h4>Exhaust Fan</h4>
+                        </div>
+                        <div class="kcard-bottom">
+                            <p class="state" id="kitchen-fan-state">Off</p>
+                            <label class="switch">
+                                <input type="checkbox" id="kitchen-toggle-fan">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </div>
+    <script src="dash.js"></script>
+</body>

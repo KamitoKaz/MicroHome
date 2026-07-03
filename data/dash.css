@@ -1,0 +1,725 @@
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+    :root {
+        --body-bg: #bad7f2;
+        --text: #14213d;
+
+        --box-bg: #e5e5e5;
+        --box-border: #14213d;
+
+        --card-bg: #bbcfd8;
+        --card-border: #14213d;
+
+        --nav-bg: #119de9;
+        --nav-text: black;
+    }
+
+        /* Dark Mode */
+    body.dark {
+        --body-bg: #4c4e5b;
+        --text: #e5e5e5;
+
+        --box-bg: #3a3f4b;
+        --box-border: #737373;
+
+        --card-bg: #6e7983;
+        --card-border: #737373;
+
+        --nav-bg: #b4b4b4;
+        --nav-text: #14213d;
+    }
+
+    body.dark .room-box{
+    background:#3a3f4b;
+    border-color:#e5e5e5;
+    }
+
+    body {
+        background: var(--body-bg);
+        color: var(--text);
+        height: 100vh;
+        padding: 15px;
+        transition: background 0.6s ease;
+        align-items: center;
+    }
+
+    body.dark .status-card,
+    body.dark .status-card * {
+        color: var(--card-text) !important;
+    }
+    
+        /* ===== Scrollbar (LIGHT MODE) ===== */
+    ::-webkit-scrollbar {
+    width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+    background: #f4f4f4;   /* track */
+    }
+
+    ::-webkit-scrollbar-thumb {
+    background: #b4b4b4;   /* thumb */
+    border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+    background: #000000;
+    }
+
+    body.dark::-webkit-scrollbar-track {
+    background: #b4b4b4;
+    }
+
+    body.dark::-webkit-scrollbar-thumb {
+    background: #f4f4f4;
+    }
+
+    body.dark::-webkit-scrollbar-thumb:hover {
+    background: #b4b8c2;
+    }
+
+    html{
+    scroll-behavior: smooth;
+    }
+
+    .wrapper1 { 
+        width: 94%; 
+        margin: auto; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navbar {
+        width: 1200px;
+        background: var(--nav-bg);
+        border-radius: 12px 12px 0 0;
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        transition: background 0.4s ease;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .nav-left { display: flex; align-items: center; gap: 20px; }
+    .logo-box { display: flex; align-items: center; gap: 8px; }
+    .logo-box img { width: 40px; height: 40px; border-radius: 50%; }
+
+    .nav-links { display: flex; gap: 30px; margin-left: 20px; font-weight: 800; }
+    .nav-links a { text-decoration: none; color: var(--nav-text); font-size: 18px; }
+
+    .right-side { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; transition: color 0.4s ease; }
+    #modeLabel { transition: color 0.3s ease; }
+
+    .switch { position: relative; width: 38px; height: 18px; }
+    .switch input { display: none; }
+
+    .slider {
+        position: absolute; inset: 0;
+        background: #f4f4f4;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+
+    .slider:before {
+        content: "";
+        position: absolute;
+        height: 14px;
+        width: 14px;
+        left: 2px;
+        bottom: 2px;
+        background: #22252b;
+        border-radius: 50%;
+        transition: 0.3s ease;
+    }
+
+    input:checked + .slider { background: #22252b; }
+    input:checked + .slider:before { transform: translateX(20px); background: white; }
+
+    .content-box {
+        width: 1200px;
+        height: 500px;
+        background: var(--box-bg);
+        border: 3px solid var(--box-border);
+        border-radius: 0 0 12px 12px;
+        padding: 20px;
+        transition: background 0.4s ease, border-color 0.4s ease;
+        display: flex; align-items: flex-start;
+        margin-bottom: 50px;
+    }
+
+    .slideshow-wrapper { display: flex; flex-direction: column; align-items: flex-start; }
+
+    .slideshow-container {
+        width: 570px; height: 270px;
+        position: relative; border-radius: 12px;
+        overflow: hidden; background: var(--box-bg);
+    }
+
+    .slide { position: absolute; width: 100%; height: 100%; display: none; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; }
+
+    .fade { animation: fadeEffect 1.2s ease-in-out; }
+
+    @keyframes fadeEffect {
+        from { opacity: 0.2; }
+        to { opacity: 1; }
+    }
+
+    /*for dark mode of cards*/
+
+   .status-card {
+        background: var(--card-bg);
+        border: 3px solid var(--card-border);
+        color: var(--card-text);
+        transition: 0.3s ease;
+    }
+
+    .status-card * {
+        color: var(--card-text);
+        transition: 0.2s;
+    }
+
+/*start cards*/
+    .status-row { 
+        display: flex; 
+        align-items: center; 
+        gap: 10px; 
+        margin-top: 15px; 
+    }
+
+    .toggle-row {
+        display: flex; align-items: center; gap: 10px;
+        justify-content: center; margin-top: 10px;
+        color: #14213d;
+    }
+
+    .switch input:disabled + .slider {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .status-card {
+        width: 135px; 
+        height: 160px;
+        background: var(--card-bg);;
+        border: 3px solid var(--card-border);
+        border-radius: 12px;
+        padding: 15px;
+        display: flex; flex-direction: column;
+        justify-content: space-between;
+        transition: 0.3s ease;
+        text-align: center;
+    }
+
+    .status-card h3 {
+        font-size: 14px; 
+        font-weight: 700; 
+        color: #14213d; 
+    }
+
+    .status-card .status-value { 
+        font-size: 14px; 
+        color: #14213d; 
+    }
+
+    /*for intruder card*/
+    .intruder-card .status-value {
+        font-size: 40px;   /* change size here */
+        font-weight: 500;  /* optional */
+        align-content: center;
+        justify-content: center;
+    }
+
+    /*for the door card*/
+    .door-state { 
+        margin-top: 5px; 
+        font-size: 14px; 
+        font-weight: 500; 
+    }
+    .status-card.text-light * {
+        color: white;
+    }   
+    .open-switch .slider {
+    background: #f4f4f4;   /* change this */
+    }
+
+    /* OPEN SWITCH — ON STATE */
+    .open-switch .slider:before {
+        background: #f4f4f4;   /* change OFF color */
+    }
+
+    .open-switch input:checked + .slider {
+        background: #1d700b;   /* change ON color */
+    }
+
+    /* OPEN SWITCH — knob OFF */
+    .open-switch .slider:before {
+        background: #22252b;   /* knob color OFF */
+    }
+
+    /* OPEN SWITCH — knob ON */
+    .open-switch input:checked + .slider:before {
+        background: #f4f4f4;     /* knob color ON */
+    }
+
+    /*for audio*/
+    
+    .audio-card .audio-switch {
+        margin-top: 10px;
+    }
+
+    .audio-card .slider {
+        background: #f4f4f4;
+    }
+
+    .audio-card input:checked + .slider {
+        background: #700087; /* ON */
+    }
+
+    .audio-card .slider:before {
+        background: #22252b; /* knob OFF */
+    }
+
+    .audio-card input:checked + .slider:before {
+        background: #f4f4f4; /* knob ON */
+    }
+    .audio-toggle-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* center horizontally */
+    
+    }
+
+    .audio-card .status-value {
+        font-size: 16px;              /* force 14px */
+        font-weight: 400;
+    }
+
+    /* for exhaust*/
+
+    .status-card {
+        padding: 15px;
+        border-radius: 12px;
+        background: var(--card-bg);
+        border: 3px solid var(--card-border);
+        transition: 0.3s;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    /* Base switch style */
+    .switch {
+        position: relative;
+        width: 40px;
+        height: 20px;
+    }
+    .switch input { display: none; }
+
+    .slider {
+        position: absolute;
+        inset: 0;
+        background: #e6e6e6;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .slider:before {
+        content: "";
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        left: 2px;
+        bottom: 2px;
+        background: #222;
+        border-radius: 50%;
+        transition: 0.3s;
+    }
+
+    input:checked + .slider {
+        background: #22252b;
+    }
+    input:checked + .slider:before {
+        transform: translateX(20px);
+        background: #e5e5e5;
+    }
+
+    /* 🔵 COLOR CUSTOMIZATION — INDIVIDUAL SWITCHES */
+    .auto-switch input:checked + .slider {
+        background: #22252b;
+    }
+    .power-switch input:checked + .slider {
+        background: #1a3396;
+    }
+
+    /* DISABLED SWITCH LOOK */
+    .switch input:disabled + .slider {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+    /* Default text color */
+    .status-card * {
+        color: #14213d;
+        transition: 0.2s;
+    }
+
+    /* When ON → all text becomes white */
+    .status-card.text-light * {
+        color: white;
+    }
+    /* for left status*/
+    .sensor-container{
+        display:flex;
+        gap:40px;
+        margin-top:-245px;
+        margin-left: 645px;
+    }
+
+    .sensor-column{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        margin-top:-170px; /* adjust to move up */
+    }
+
+    .sensor-temperature{
+       background: linear-gradient(to bottom right, #fa8947, #f78a47, #973c00); 
+       border-color: #f58b4d;
+    }
+    .tempF{
+        font-size: 13px;
+    }
+    .sensor-heat{
+       background: linear-gradient(to bottom right, #fa8947, #f78a47, #973c00); 
+       border-color: #f58b4d;
+    }
+    .hif{
+        font-size: 13px;
+    }
+    .status-card .value{
+        font-size: 21px;
+    }
+
+    .status-card .location{
+        font-size: 10px;
+    }
+
+    /* For room control*/
+    .rcontent-box {
+        width: 1200px;
+        height: 500px;
+        background: var(--box-bg);
+        border: 3px solid var(--box-border);
+        border-radius: 12px;
+        padding: 20px;
+        transition: background 0.4s ease, border-color 0.4s ease;
+
+        display:flex;
+        justify-content:center;
+        align-items:flex-start;
+        gap:100px;
+    }
+
+    .room-box {
+        width: 100%;
+        height: calc(100vh - 90px);
+        background: var(--box-bg);
+        border: 3px solid var(--box-border);
+        border-radius: 12px;
+        padding: 20px;
+        transition: background 0.4s ease, border-color 0.4s ease;
+        display: flex; align-items: flex-start;
+    
+    }
+
+    /* bedroom */
+    .broom-box {
+        width: 100%;
+        height: calc(100vh - 90px);
+        background-color: var(--card-bg);
+        border: 3px solid var(--card-border);
+        color: var(--card-text);
+        border-radius: 12px;
+        padding: 20px;
+        transition: background 0.4s ease, border-color 0.4s ease;
+        display: flex; align-items: flex-start;
+    }
+
+    .bedroom{
+        display:flex;
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .bedroom h2{
+        font-size:22px;
+        font-weight:700;
+    }
+
+    .bcontrol-card{
+        background-color: var(--card-bg);
+        border: 3px solid var(--card-border);
+        color: var(--card-text);
+        padding:15px 25px;
+        border-radius:12px;
+        width:300px;
+    }
+
+    .bcontrol-card h4{
+        font-size:18px;
+        margin-bottom:10px;
+    }
+
+    .bcontrol-card.disabled{
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(100%);
+    }
+
+    .bcontrol-card {
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .bcard-bottom{
+        display:flex;
+        justify-content: space-between;
+        align-items:center;
+        margin-top:10px;
+    }
+
+    .bcard-top h4{
+        margin-bottom:8px;
+        font-size:18px;
+    }
+
+    .bedroom .state{
+    font-size:18px;
+    }
+
+    /* kitchen */
+    .kroom-box {
+        width: 100%;
+        height: calc(100vh - 90px);
+        background-color: var(--card-bg);
+        border: 3px solid var(--card-border);
+        color: var(--card-text);
+        border-radius: 12px;
+        padding: 20px;
+        transition: background 0.4s ease, border-color 0.4s ease;
+        display: flex; align-items: flex-start;
+    }
+
+    .kitchen{
+        display:flex;
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .kitchen h2{
+        font-size:22px;
+        font-weight:700;
+    }
+
+    .kcontrol-card{
+        background-color: var(--card-bg);
+        border: 3px solid var(--card-border);
+        color: var(--card-text);
+        padding:15px 25px;
+        border-radius:12px;
+        width:300px;
+        height: 80px;
+    }
+
+    .kcontrol-card h4{
+        font-size:18px;
+        margin-bottom:10px;
+    }
+
+    .kcontrol-card.disabled{
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(100%);
+    }
+
+    .kcontrol-card {
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .kcard-bottom{
+        display:flex;
+        justify-content: space-between;
+        align-items:center;
+        margin-top:10px;
+    }
+
+    .kcard-top h4{
+        margin-bottom:8px;
+        font-size:18px;
+    }
+
+    .living .state{
+    font-size:18px;
+    }
+
+    .greeting-panel{
+        display:flex;
+        flex-direction:column;
+    }
+
+    .greet-box{
+        margin-top:2px;
+        display:flex;
+        justify-content:center;
+        width:100%;
+    }
+
+    .greet-btn{
+        width: 100px;
+        height: 30px;
+        font-size:15px;
+        background:#044389;
+        border:none;
+        justify-content: center;
+        border-radius:20px;
+        color:#ffffff;
+        cursor:pointer;
+    }
+
+    /*living room*/
+
+    .lroom-box {
+        width: 100%;
+        height: calc(100vh - 90px);
+        background-color: var(--card-bg);
+        border: 3px solid var(--card-border);
+        color: var(--card-text);
+        border-radius: 12px;
+        padding: 20px;
+        transition: background 0.4s ease, border-color 0.4s ease;
+        display: flex; align-items: flex-start;
+    }
+
+    .livingroom{
+        display:flex;
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .licingroom h2{
+        font-size:22px;
+        font-weight:700;
+    }
+
+    .lcontrol-card{
+        background-color: var(--card-bg);
+        border: 3px solid var(--card-border);
+        color: var(--card-text);
+        padding:15px 25px;
+        border-radius:12px;
+        width:300px;
+        height: 80px;
+    }
+
+    .lcontrol-card h4{
+        font-size:18px;
+        margin-bottom:10px;
+    }
+
+    .lcontrol-card.disabled{
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(100%);
+    }
+
+    .lcontrol-card {
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .lcard-bottom{
+        display:flex;
+        justify-content: space-between;
+        align-items:center;
+        margin-top:10px;
+    }
+
+    .lcard-top h4{
+        margin-bottom:8px;
+        font-size:18px;
+    }
+
+    .living .state{
+    font-size:18px;
+    }
+
+
+/* --- Alert Box Changes --- */
+
+#intruder-alert-overlay { 
+    position: fixed;
+    inset: 0;
+    background: transparent;
+    display: none; 
+    z-index: 99999;
+    align-items: flex-start; 
+    justify-content: center; 
+} 
+
+.intruder-alert-box { 
+    width: 350px; 
+    height: 120px; 
+    border-radius: 18px; 
+    background: #ff1313;
+    border: 4px solid #8b0000; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+} 
+.intruder-alert-box h1 { 
+    font-size: 25px; 
+    font-weight: 900; 
+    color: var(--card-text); 
+    margin-top: 20px; 
+} 
+.intruder-alert-box h2 { 
+    font-size: 20px; 
+    font-weight: 800; 
+    color: var(--card-text); 
+    margin-bottom: 20px; 
+} 
+
+/* Intruder card smooth transition */
+.intruder-notification {
+  position: top center;           /* Float over dashboard */
+  margin-bottom: 20px;
+  top: 10px;                 /* Slightly below the top */
+  right: 20px;               /* Align to top-right corner */
+  width: 1200px;              /* Fixed width box */
+  padding: 35px 20px;
+  background: linear-gradient(to bottom right, #ff1313, #ff4c4c);
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 20px;
+  z-index: 1000;             /* On top of everything */
+  display: none;             /* Hidden by default */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  border: 2px solid #7d0000;
+  pointer-events: auto;      /* Dashboard still usable */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
